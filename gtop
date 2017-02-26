@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+"""
+gtop is a simple process monitor for NVIDIA GPUs.
+
+@author Dogan Can
+"""
+
+import argparse
+import subprocess
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--no-color', action='store_true',
+                    help='Do not color output')
+parser.add_argument('--no-truncate', action='store_true',
+                    help='Do not truncate output to console width')
+args = parser.parse_args()
+
+gpustat_call = "gpustat"
+if not args.no_color:
+    gpustat_call += " --color"
+if not args.no_truncate:
+    gpustat_call += " --truncate"
+
+process = subprocess.Popen("watch -ct -n 1 '%s'" % (gpustat_call), shell=True)
+try:
+  sys.stdin.read(1)
+except:
+  pass
+finally:
+  process.terminate()

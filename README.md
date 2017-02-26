@@ -1,57 +1,45 @@
-`gpustat`
+`gtop`
 =========
 
-[![pypi](https://img.shields.io/pypi/v/gpustat.svg?maxAge=86400)][pypi_gpustat]
-[![license](https://img.shields.io/github/license/wookayin/gpustat.svg?maxAge=86400)](LICENSE)
+`gtop` is a simple process monitor for NVIDIA GPUs based on a fork of
+[`gpustat`](https://pypi.python.org/pypi/gpustat) by
+[wookayin](https://github.com/wookayin). It has an old school interface
+reminiscent of interactive system monitors like `top` and `htop`.
 
-Just *less* than nvidia-smi?
-
-![Screenshot: gpustat -cp](screenshot.png)
+![Screenshot: gtop](screenshot.png)
 
 Usage
 -----
+
+`gpustat` prints a snapshot of the current GPU usage.
 
 `$ gpustat`
 
 Options:
 
-* `--no-color`        : Suppress color (by default, color is enabled)
-* `-u`, `--show-user` : Display username of the process owner
-* `-c`, `--show-cmd`  : Display the process name
-* `-p`, `--show-pid`  : Display PID of the process
+* `--color`           : Color output
+* `--truncate`        : Truncate output to console width
 
-### Tips
+`gtop` periodically calls `gpustat` and displays its output. It is not an
+interactive process monitor. Pressing any key exits `gtop`. By default `gtop`
+output is in color and is truncated to console width.
 
-- To periodically watch, try `watch --color -n1.0 gpustat` (built-in watch support will be added soon).
-- Running `nvidia-smi daemon` (root privilege required) will make the query much faster.
+`$ gtop`
 
+Options:
 
-Quick Installation
-------------------
+* `--no-color`        : Do not color output
+* `--no-truncate`     : Do not truncate output to console width
 
-Install from [PyPI][pypi_gpustat]:
+Installation
+------------
 
-```
-sudo pip install gpustat
-```
-
-To install the latest version (master branch) via pip:
+Copy `gpustat` and `gtop` to somewhere in `PATH`, e.g. `/usr/local/bin/`.
 
 ```
-pip install git+https://github.com/wookayin/gpustat.git@master
+chmod +x gpustat gtop
+cp gpustat gtop /usr/local/bin/
 ```
-
-Alternatively, you can just download an *unstable* version of [gpustat.py][script_gitio] (or any [stable version][script_stable]) into somewhere in `PATH`, e.g. `~/.local/bin/`
-(when you do not have root privilege, for example):
-
-```
-sudo wget https://git.io/gpustat.py -O /usr/local/bin/gpustat && sudo chmod +x /usr/local/bin/gpustat
-```
-
-[pypi_gpustat]: https://pypi.python.org/pypi/gpustat
-[script_gitio]: https://git.io/gpustat.py
-[script_stable]: https://raw.githubusercontent.com/wookayin/gpustat/v0.2.0/gpustat.py
-
 
 License
 -------
