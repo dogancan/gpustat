@@ -11,15 +11,6 @@ reminiscent of interactive system monitors like `top` and `htop`.
 Usage
 -----
 
-`gpustat` prints a snapshot of the current GPU usage.
-
-`$ gpustat`
-
-Options:
-
-* `--color`           : Color output
-* `--truncate`        : Truncate output to console width
-
 `gtop` periodically calls `gpustat` and displays its output. It is not an
 interactive process monitor. Pressing any key exits `gtop`. By default `gtop`
 output is in color and is truncated to console width.
@@ -30,6 +21,15 @@ Options:
 
 * `--no-color`        : Do not color output
 * `--no-truncate`     : Do not truncate output to console width
+
+`gpustat` prints a snapshot of the current GPU usage.
+
+`$ gpustat`
+
+Options:
+
+* `--color`           : Color output
+* `--truncate`        : Truncate output to console width
 
 Installation
 ------------
