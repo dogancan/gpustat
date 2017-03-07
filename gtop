@@ -17,7 +17,7 @@ parser.add_argument('--no-truncate', action='store_true',
                     help='Do not truncate output to console width')
 args = parser.parse_args()
 
-gpustat_call = "gpustat"
+gpustat_call = "COLUMNS=1000 gpustat"
 if not args.no_color:
     gpustat_call += " --color"
 if not args.no_truncate:
