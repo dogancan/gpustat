@@ -30,3 +30,4 @@ except:
   pass
 finally:
   process.terminate()
+  subprocess.call("stty sane", shell=True)
