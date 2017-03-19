@@ -8,28 +8,31 @@ reminiscent of interactive system monitors like `top` and `htop`.
 
 ![Screenshot: gtop](screenshot.png)
 
-Usage
------
-
 `gtop` periodically calls `gpustat` and displays its output. It is not an
 interactive process monitor. Pressing any key exits `gtop`. By default `gtop`
 output is in color and is truncated to console width.
 
-`$ gtop`
+```
+usage: gtop [-h] [--no-color] [--no-truncate]
 
-Options:
+optional arguments:
+  -h, --help     show this help message and exit
+  --no-color     Do not color output
+  --no-truncate  Do not truncate output to console width
+```
 
-* `--no-color`        : Do not color output
-* `--no-truncate`     : Do not truncate output to console width
+`gpustat` prints a snapshot of the current GPU usage. The default `gpustat`
+output has the opposite characteristics of the default `gtop` output, i.e. no
+color, no truncation.
 
-`gpustat` prints a snapshot of the current GPU usage.
+```
+usage: gpustat [-h] [--color] [--truncate]
 
-`$ gpustat`
-
-Options:
-
-* `--color`           : Color output
-* `--truncate`        : Truncate output to console width
+optional arguments:
+  -h, --help  show this help message and exit
+  --color     Color output
+  --truncate  Truncate output to console width
+```
 
 Installation
 ------------
