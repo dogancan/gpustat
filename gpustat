@@ -100,11 +100,11 @@ class GPUStat(object):
                "{c[Perf]}{e[pstate]:4}{c[Reset]}" +
                "{c[Fan]}{e[fan.speed]:>3}%{c[Reset]} " +
                "{c[Temp]}{e[temperature.gpu]:>2}'C{c[Reset]} " +
-               "{c[PowerD]}{power_draw:>3}W{c[Reset]} / " +
-               "{c[PowerL]}{power_limit:>3}W{c[Reset]} |" +
+               "{c[PowerD]}{power_draw:>3}W{c[Reset]}/" +
+               "{c[PowerL]}{power_limit:>3}W{c[Reset]} | " +
                "{c[UtilG]}{e[utilization.gpu]:>3}%{c[Reset]} " +
-               "{c[UtilM]}{e[utilization.memory]:>3}%{c[Reset]} |" +
-               "{c[MemU]}{e[memory.used]:>5}M{c[Reset]} / " +
+               "{c[UtilM]}{e[utilization.memory]:>3}%{c[Reset]} | " +
+               "{c[MemU]}{e[memory.used]:>5}M{c[Reset]}/" +
                "{c[MemT]}{e[memory.total]:>5}M{c[Reset]}"
                ).format(c=colors, e=self.entry, w=gpuname_width,
                         power_draw=int(float(self.entry['power.draw'])),
@@ -129,12 +129,12 @@ class GPUStat(object):
                    "{p[pid]:>8}  " +
                    "{p[user]:8}" +
                    "{p[type]:>6}" +
-                   "{p[sm]:>9}%" +
-                   "{p[mem]:>9}%" +
+                   "{p[sm]:>8}%" +
+                   "{p[mem]:>8}%" +
                    "{c[MemP]}{p[fb]:>8}M{c[Reset]}  "
                    ).format(c=colors, e=self.entry, p=process)
             if cols > 58:
-                rep += "{:.{width}}".format(process['comm'], width=cols - 58)
+                rep += "{:.{width}}".format(process['comm'], width=cols - 56)
             else:
                 rep += process['comm']
             return rep
@@ -280,8 +280,8 @@ def print_stats(color=False, truncate=False):
     print(host_header)
 
     # gpu stats
-    gsh = ('GPU NAME                  PERF FAN TEMP    POWER      '
-           'GPU  MEM       MEM-USE')
+    gsh = ('GPU NAME                  PERF FAN TEMP    POWER     '
+           'GPU  MEM      MEM-USE')
     gpu_stats_header = '{:{cols}}'.format(gsh, cols=cols)
     print(gpu_stats_header)
     gpuname_width = max([16] + [len(g.entry['name']) for g in gpu_stats])
@@ -291,7 +291,7 @@ def print_stats(color=False, truncate=False):
     print()
 
     # process stats
-    psh = 'GPU     PID  USER      TYPE  GPU-UTIL  MEM-UTIL  MEM-USE  COMMAND'
+    psh = 'GPU     PID  USER      TYPE  GPU-UTI  MEM-UTI  MEM-USE  COMMAND'
     process_stats_header = '{:{cols}}'.format(psh, cols=cols)
     if color:
         process_stats_header = ANSIColors.wrap(ANSIColors.BLACK_ON_GREEN_BG,
