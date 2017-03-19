@@ -21,8 +21,8 @@ optional arguments:
   --no-truncate  Do not truncate output to console width
 ```
 
-`gpustat` prints a snapshot of the current GPU usage. The default `gpustat`
-output has the opposite characteristics of the default `gtop` output, i.e. no
+`gpustat` prints a snapshot of the current GPU usage. Default `gpustat`
+output has the opposite characteristics of default `gtop` output, i.e. no
 color, no truncation.
 
 ```
