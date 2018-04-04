@@ -101,7 +101,8 @@ class GPUStat(object):
                "{c[Fan]}{e[fan.speed]:>3}%{c[Reset]} " +
                "{c[Temp]}{e[temperature.gpu]:>2}'C{c[Reset]} " +
                "{c[PowerD]}{power_draw:>3}W{c[Reset]}/" +
-               "{c[PowerL]}{power_limit:>3}W{c[Reset]} | " +
+               "{c[PowerL]}{power_limit:>3}W{c[Reset]} " +
+               "{c[Fan]}{e[clocks.current.sm]:>4}MHz{c[Reset]} | " +
                "{c[UtilG]}{e[utilization.gpu]:>3}%{c[Reset]} " +
                "{c[UtilM]}{e[utilization.memory]:>3}%{c[Reset]} | " +
                "{c[MemU]}{e[memory.used]:>5}M{c[Reset]}/" +
@@ -139,8 +140,9 @@ class GPUStat(object):
                 rep += process['comm']
             return rep
 
-        reps = '\n'.join(map(process_repr, self.processes))
-        print(reps)
+        if len(self.processes) > 0:
+            reps = '\n'.join(map(process_repr, self.processes))
+            print(reps)
 
     @property
     def index(self):
@@ -165,7 +167,7 @@ class GPUStatCollection(object):
         # 1. get the list of gpu and status
         gpu_query_columns = ('index', 'uuid', 'name', 'pstate',
                              'fan.speed', 'temperature.gpu',
-                             'power.draw', 'power.limit',
+                             'power.draw', 'power.limit', 'clocks.current.sm',
                              'utilization.gpu', 'utilization.memory',
                              'memory.used', 'memory.total')
         gpu_list = []
@@ -280,7 +282,7 @@ def print_stats(color=False, truncate=False):
     print(host_header)
 
     # gpu stats
-    gsh = ('GPU NAME                  PERF FAN TEMP    POWER     '
+    gsh = ('GPU NAME                  PERF FAN TEMP    POWER   CLOCK     '
            'GPU  MEM      MEM-USE')
     gpu_stats_header = '{:{cols}}'.format(gsh, cols=cols)
     print(gpu_stats_header)
